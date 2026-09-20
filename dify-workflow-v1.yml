@@ -1,0 +1,1241 @@
+app:
+  description: 基于脑机接口四岗位知识库大全的多角色代码生成系统。支持智能体开发、脑机适配、数字孪生、软件开发四类角色。
+  icon: 🧠
+  icon_background: '#1E3A5F'
+  icon_type: emoji
+  mode: advanced-chat
+  name: BCI脑机接口四岗位代码生成器
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.19@1aa3c64e2f50179afe8410ad79412dab92bf5919a27da8e2b13071b5e5f8ce81
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      - .md
+      - .txt
+      - .pdf
+      - .py
+      - .cpp
+      - .cs
+      - .ts
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: e-auto-cls
+      selected: false
+      source: '1770000004'
+      sourceHandle: 'true'
+      target: '1770000003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: template-transform
+      id: e-cls-adapt
+      selected: false
+      source: '1770000003'
+      sourceHandle: '2'
+      target: '1770000011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: template-transform
+      id: e-cls-agent
+      selected: false
+      source: '1770000003'
+      sourceHandle: '1'
+      target: '1770000010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: template-transform
+      id: e-cls-soft
+      selected: false
+      source: '1770000003'
+      sourceHandle: '4'
+      target: '1770000013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: template-transform
+      id: e-cls-twin
+      selected: false
+      source: '1770000003'
+      sourceHandle: '3'
+      target: '1770000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: e-kb-ifauto
+      selected: false
+      source: '1770000002'
+      sourceHandle: source
+      target: '1770000004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm20-answer
+      selected: false
+      source: '1770000020'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm21-answer
+      selected: false
+      source: '1770000021'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm22-answer
+      selected: false
+      source: '1770000022'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm23-answer
+      selected: false
+      source: '1770000023'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-madapt-iftwin
+      selected: false
+      source: '1770000015'
+      sourceHandle: 'false'
+      target: '1770000016'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: e-madapt-t11
+      selected: false
+      source: '1770000015'
+      sourceHandle: 'true'
+      target: '1770000011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-magent-ifadapt
+      selected: false
+      source: '1770000014'
+      sourceHandle: 'false'
+      target: '1770000015'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: e-magent-t10
+      selected: false
+      source: '1770000014'
+      sourceHandle: 'true'
+      target: '1770000010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-manual-ifagent
+      selected: false
+      source: '1770000004'
+      sourceHandle: 'false'
+      target: '1770000014'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: e-mtwin-t12
+      selected: false
+      source: '1770000016'
+      sourceHandle: 'true'
+      target: '1770000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: e-mtwin-t13
+      selected: false
+      source: '1770000016'
+      sourceHandle: 'false'
+      target: '1770000013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: e-start-kb
+      selected: false
+      source: '1770000001'
+      sourceHandle: source
+      target: '1770000002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t10-llm20
+      selected: false
+      source: '1770000010'
+      sourceHandle: source
+      target: '1770000020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t11-llm21
+      selected: false
+      source: '1770000011'
+      sourceHandle: source
+      target: '1770000021'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t12-llm22
+      selected: false
+      source: '1770000012'
+      sourceHandle: source
+      target: '1770000022'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t13-llm23
+      selected: false
+      source: '1770000013'
+      sourceHandle: source
+      target: '1770000023'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 选择BCI角色、Skills和输入代码需求
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: 自动识别
+          label: 🧠 BCI 开发角色
+          options:
+          - 自动识别
+          - 智能体开发工程师
+          - 脑机适配工程师
+          - 数字孪生工程师
+          - 软件开发工程师
+          required: true
+          type: select
+          variable: user_role
+        - label: 📝 代码需求描述
+          max_length: 8000
+          options: []
+          required: true
+          type: paragraph
+          variable: code_request
+        - default: 自动推断
+          label: 目标语言
+          options:
+          - 自动推断
+          - Python
+          - C/C++
+          - Rust
+          - C# (Unity)
+          - TypeScript
+          - JavaScript
+          - MATLAB
+          required: false
+          type: select
+          variable: target_language
+        - default: ''
+          label: 目标框架/库
+          max_length: 200
+          placeholder: 如 PyTorch, MNE-Python, LangChain, Unity, FastAPI, BrainFlow
+            等
+          required: false
+          type: text-input
+          variable: target_framework
+        - default: 生成并附带测试
+          label: 生成模式
+          options:
+          - 仅生成代码
+          - 生成并附带测试
+          - 生成、测试、优化（完整交付）
+          required: false
+          type: select
+          variable: generation_mode
+        - default: true
+          label: '🔍 Skill: 网络搜索（搜索最新BCI框架文档和论文实现）'
+          required: false
+          type: checkbox
+          variable: skill_search
+        - default: true
+          label: '⚡ Skill: 代码执行验证（运行代码并验证正确性）'
+          required: false
+          type: checkbox
+          variable: skill_exec
+        - default: false
+          label: '🧠 [智能体] Skill: 神经信号处理管道（MNE/BrainFlow 滤波、特征提取、CSP）'
+          required: false
+          type: checkbox
+          variable: skill_signal_proc
+        - default: false
+          label: '🔧 [适配] Skill: 信号质量评估（阻抗/伪迹/信噪比/漂移检测）'
+          required: false
+          type: checkbox
+          variable: skill_quality
+        - default: false
+          label: '🎮 [孪生] Skill: VR脑机交互（Unity+OpenXR+脑控导航）'
+          required: false
+          type: checkbox
+          variable: skill_vr_bci
+        - default: false
+          label: '💻 [软件] Skill: 设备驱动与采集（g.tec/BrainProducts/OpenBCI/Emotiv/Muse）'
+          required: false
+          type: checkbox
+          variable: skill_device
+      height: 396
+      id: '1770000001'
+      position:
+        x: 0
+        y: 0
+      positionAbsolute:
+        x: 0
+        y: 0
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 从脑机接口四岗位知识库中检索相关技术文档
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 8
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - code_request
+        retrieval_mode: multiple
+        selected: false
+        title: BCI知识库检索
+        type: knowledge-retrieval
+      height: 133
+      id: '1770000002'
+      position:
+        x: 348.59479341998804
+        y: 219.83333333333331
+      positionAbsolute:
+        x: 348.59479341998804
+        y: 219.83333333333331
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        classes:
+        - description: '神经信号处理(CSP/黎曼/时频) + 深度学习解码(EEGNet/ATCNet) + LLM Agent(LangChain)
+            + 实时闭环(LSL/ROS2)。关键词: EEGNet, 运动想象, LangChain, CSP, BCI'
+          id: '1'
+          label: 智能体开发工程师
+          name: 智能体开发工程师
+        - description: '信号自适应 + 迁移学习(DANN/ADAN/MMD) + 在线校准 + 信号质量评估 + 伪迹去除(ICA/ASR)。关键词:
+            迁移学习, 域适应, DANN, ICA, 校准'
+          id: '2'
+          label: 脑机适配工程师
+          name: 脑机适配工程师
+        - description: 'VR/AR脑机交互(Unity/OpenXR) + 数字人脑控(IK/FK) + 3D可视化(Three.js/WebGL)
+            + 边缘-云协同。关键词: VR, Unity, 数字孪生, Three.js'
+          id: '3'
+          label: 数字孪生工程师
+          name: 数字孪生工程师
+        - description: '设备驱动(OpenBCI) + 数据管道(LSL/ZeroMQ/Kafka) + API(FastAPI/gRPC)
+            + 可视化(React/ECharts) + 医疗合规(IEC 62304)。关键词: LSL, FastAPI, 设备驱动'
+          id: '4'
+          label: 软件开发工程师
+          name: 软件开发工程师
+        desc: 根据需求描述自动判断BCI岗位角色
+        instruction: 根据用户的需求描述和技术关键词，判断最匹配哪个BCI岗位角色。严格四选一。
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        query_variable_selector:
+        - '1770000001'
+        - code_request
+        selected: false
+        title: 识别BCI角色
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 289
+      id: '1770000003'
+      position:
+        x: 1778
+        y: 371.110245660731
+      positionAbsolute:
+        x: 1778
+        y: 371.110245660731
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-auto
+            value: 自动识别
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 检查用户是否选择了自动识别
+        selected: false
+        title: 自动识别角色?
+        type: if-else
+      height: 151
+      id: '1770000004'
+      position:
+        x: 686
+        y: 219.83333333333331
+      positionAbsolute:
+        x: 686
+        y: 219.83333333333331
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🧠 角色：脑机智能体开发工程师
+
+
+          ## ⚙️ 技能开关表
+
+          | # | 技能 | 状态 |
+
+          |---|------|------|
+
+          | 🔍 | 网络搜索 | {{skill_search}} |
+
+          | ⚡ | 代码执行验证 | {{skill_exec}} |
+
+          | 🧠1 | 神经信号处理 | {{skill_signal_proc}} |
+
+
+          ---
+
+          ## 📚 知识库参考
+
+          {{kb_context}}
+
+
+          ## 📝 用户需求
+
+          {{user_request}}
+
+
+          ## 技术参数: {{language}} + {{framework}} | 模式: {{generation}}
+
+
+          ## 输出规范（严格按顺序）
+
+          1. 类型/接口定义 — 信号数据类型、解码结果类型、Agent状态类型
+
+          2. 信号处理管道 — 滤波→伪迹去除→CSP/黎曼特征提取
+
+          3. 解码模型 — PyTorch模型定义(EEGNet/ATCNet)+训练循环+早停
+
+          4. Agent决策逻辑 — ReAct/Plan-Execute+至少3个工具定义
+
+          5. 实时集成 — LSL数据源→推理→决策→反馈闭环
+
+          6. 评估 — 准确率/Kappa/ITR+单元测试
+
+
+          ## 质量标准: 4分类准确率≥70%, 参数量≤100K, 延迟<100ms, 线程安全
+
+          ## 代码风格: Python 3.9+, typing, Google docstring, 模块化
+
+          '
+        title: 智能体开发 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1770000002'
+          - result
+          variable: kb_context
+        - value_selector:
+          - '1770000001'
+          - code_request
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - target_language
+          variable: language
+        - value_selector:
+          - '1770000001'
+          - target_framework
+          variable: framework
+        - value_selector:
+          - '1770000001'
+          - generation_mode
+          variable: generation
+        - value_selector:
+          - '1770000001'
+          - skill_search
+          variable: skill_search
+        - value_selector:
+          - '1770000001'
+          - skill_exec
+          variable: skill_exec
+        - value_selector:
+          - '1770000001'
+          - skill_signal_proc
+          variable: skill_signal_proc
+      height: 51
+      id: '1770000010'
+      position:
+        x: 2142
+        y: 112.61111111111109
+      positionAbsolute:
+        x: 2142
+        y: 112.61111111111109
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🔧 角色：脑机适配工程师
+
+
+          ## ⚙️ 技能开关表
+
+          | # | 技能 | 状态 |
+
+          |---|------|------|
+
+          | 🔍 | 网络搜索 | {{skill_search}} |
+
+          | ⚡ | 代码执行验证 | {{skill_exec}} |
+
+          | 🔧1 | 信号质量评估 | {{skill_quality}} |
+
+
+          ---
+
+          ## 📚 知识库参考
+
+          {{kb_context}}
+
+
+          ## 📝 用户需求
+
+          {{user_request}}
+
+
+          ## 技术参数: {{language}} + {{framework}} | 模式: {{generation}}
+
+
+          ## 输出规范（严格按顺序）
+
+          1. 信号质量评估 — 阻抗/工频噪声/EOG/EMG/SNR/坏通道标记
+
+          2. 预处理与伪迹去除 — 带通/陷波→ICA/ASR→CAR→基线校正
+
+          3. 域适应/迁移学习 — DANN梯度反转层+黎曼对齐+MMD/CORAL
+
+          4. 在线校准 — 协方差滑动更新+自适应LR+置信度阈值
+
+          5. 评估 — 跨被试准确率≥+5%, 校准数据量−30%, SNR +3dB
+
+
+          ## 质量标准: SNR提升≥3dB, 跨被试≥80%被试内, 校准<50ms
+
+          ## 代码风格: Python 3.9+, fit/transform接口, 随机种子可控
+
+          '
+        title: 脑机适配 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1770000002'
+          - result
+          variable: kb_context
+        - value_selector:
+          - '1770000001'
+          - code_request
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - target_language
+          variable: language
+        - value_selector:
+          - '1770000001'
+          - target_framework
+          variable: framework
+        - value_selector:
+          - '1770000001'
+          - generation_mode
+          variable: generation
+        - value_selector:
+          - '1770000001'
+          - skill_search
+          variable: skill_search
+        - value_selector:
+          - '1770000001'
+          - skill_exec
+          variable: skill_exec
+        - value_selector:
+          - '1770000001'
+          - skill_quality
+          variable: skill_quality
+      height: 51
+      id: '1770000011'
+      position:
+        x: 2142
+        y: 292.9417298725694
+      positionAbsolute:
+        x: 2142
+        y: 292.9417298725694
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🎮 角色：数字孪生工程师
+
+
+          ## ⚙️ 技能开关表
+
+          | # | 技能 | 状态 |
+
+          |---|------|------|
+
+          | 🔍 | 网络搜索 | {{skill_search}} |
+
+          | ⚡ | 代码执行验证 | {{skill_exec}} |
+
+          | 🎮1 | VR脑机交互 | {{skill_vr_bci}} |
+
+
+          ---
+
+          ## 📚 知识库参考
+
+          {{kb_context}}
+
+
+          ## 📝 用户需求
+
+          {{user_request}}
+
+
+          ## 技术参数: {{language}} + {{framework}} | 模式: {{generation}}
+
+
+          ## 输出规范（严格按顺序）
+
+          1. 场景与架构 — 5层孪生架构+组件树+数据流图
+
+          2. LSL数据接入层 — Python/C# LSL inlet+环形缓冲区+时间同步
+
+          3. 数字人控制 — IK/FK骨骼映射+blendshape驱动+平滑滤波
+
+          4. 3D可视化 — WebGL着色器(热力图/脑地形图)+粒子系统+60fps+
+
+
+          ## 质量标准: VR<50ms, 渲染≥90fps, 骨骼<5ms, 同步≥60Hz
+
+          ## 代码风格: C#命名空间+[SerializeField], TS强类型, Python异步
+
+          '
+        title: 数字孪生 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1770000002'
+          - result
+          variable: kb_context
+        - value_selector:
+          - '1770000001'
+          - code_request
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - target_language
+          variable: language
+        - value_selector:
+          - '1770000001'
+          - target_framework
+          variable: framework
+        - value_selector:
+          - '1770000001'
+          - generation_mode
+          variable: generation
+        - value_selector:
+          - '1770000001'
+          - skill_search
+          variable: skill_search
+        - value_selector:
+          - '1770000001'
+          - skill_exec
+          variable: skill_exec
+        - value_selector:
+          - '1770000001'
+          - skill_vr_bci
+          variable: skill_vr_bci
+      height: 51
+      id: '1770000012'
+      position:
+        x: 2142
+        y: 464.6111111111111
+      positionAbsolute:
+        x: 2142
+        y: 464.6111111111111
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 💻 角色：脑机软件开发工程师
+
+
+          ## ⚙️ 技能开关表
+
+          | # | 技能 | 状态 |
+
+          |---|------|------|
+
+          | 🔍 | 网络搜索 | {{skill_search}} |
+
+          | ⚡ | 代码执行验证 | {{skill_exec}} |
+
+          | 💻1 | 设备驱动与采集 | {{skill_device}} |
+
+
+          ---
+
+          ## 📚 知识库参考
+
+          {{kb_context}}
+
+
+          ## 📝 用户需求
+
+          {{user_request}}
+
+
+          ## 技术参数: {{language}} + {{framework}} | 模式: {{generation}}
+
+
+          ## 输出规范（严格按顺序）
+
+          1. 设备驱动层 — LSL封装+SDK适配器+多设备同步+错误重连
+
+          2. 数据管道 — 环形缓冲区→多路复用→压缩→传输→持久化
+
+          3. API服务 — FastAPI路由+gRPC+WebSocket+JWT+速率限制
+
+          4. 可视化 — React+ECharts+D3脑地形图+实时波形
+
+          5. 数据存储 — 时序DB+HDF5/Zarr+PostgreSQL元数据
+
+          6. 测试与部署 — pytest→Docker Compose→CI/CD→K8s
+
+
+          ## 质量标准: LSL偏差<5ms, 管道1MB/s+, API P99<100ms, 覆盖率≥85%
+
+          ## 代码风格: FastAPI+asyncio+Pydantic v2, Docker multi-stage
+
+          '
+        title: 软件开发 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1770000002'
+          - result
+          variable: kb_context
+        - value_selector:
+          - '1770000001'
+          - code_request
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - target_language
+          variable: language
+        - value_selector:
+          - '1770000001'
+          - target_framework
+          variable: framework
+        - value_selector:
+          - '1770000001'
+          - generation_mode
+          variable: generation
+        - value_selector:
+          - '1770000001'
+          - skill_search
+          variable: skill_search
+        - value_selector:
+          - '1770000001'
+          - skill_exec
+          variable: skill_exec
+        - value_selector:
+          - '1770000001'
+          - skill_device
+          variable: skill_device
+      height: 51
+      id: '1770000013'
+      position:
+        x: 2142
+        y: 701.0555555555555
+      positionAbsolute:
+        x: 2142
+        y: 701.0555555555555
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-agent
+            value: 智能体开发工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：是否为智能体开发工程师
+        selected: false
+        title: 智能体开发?
+        type: if-else
+      height: 175
+      id: '1770000014'
+      position:
+        x: 1034.842834334896
+        y: 326.8013905298598
+      positionAbsolute:
+        x: 1034.842834334896
+        y: 326.8013905298598
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-adapt
+            value: 脑机适配工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：是否为脑机适配工程师
+        selected: false
+        title: 脑机适配?
+        type: if-else
+      height: 175
+      id: '1770000015'
+      position:
+        x: 1414
+        y: 407.52777777777777
+      positionAbsolute:
+        x: 1414
+        y: 407.52777777777777
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-twin
+            value: 数字孪生工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：数字孪生?(false=软件开发)
+        selected: false
+        title: 数字孪生?
+        type: if-else
+      height: 175
+      id: '1770000016'
+      position:
+        x: 1778
+        y: 653.0555555555555
+      positionAbsolute:
+        x: 1778
+        y: 653.0555555555555
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 33b26078-5ee5-4c4e-b172-9be79412f5bd
+          role: system
+          text: '你是脑机智能体开发工程师。核心能力: 神经信号处理(CSP/黎曼/时频)、深度学习解码(EEGNet/ATCNet/EEG-Transformer)、LLM
+            Agent框架(LangChain/AutoGen/ReAct)、实时闭环(LSL+ROS2, <100ms)。技术栈: Python 3.9+
+            / PyTorch 2.x / MNE-Python / Braindecode / LangChain / LSL / ONNX / TensorRT。代码规范:
+            typing类型注解, Google docstring, 模型参数量<100K, 线程安全, sklearn评估。'
+        - id: 377d1214-20c3-479c-9675-8accbf2472c0
+          role: user
+          text: '{{#1770000010.output#}}'
+        selected: false
+        title: 🧠 智能体开发
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000020'
+      position:
+        x: 2486
+        y: 128.6111111111111
+      positionAbsolute:
+        x: 2486
+        y: 128.6111111111111
+      selected: true
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是脑机适配工程师。核心能力: 信号质量评估、伪迹去除(ICA/ASR)、域适应(DANN/ADAN/黎曼对齐/MMD/CORAL)、在线校准(自适应LR/协方差补偿)、多模态融合(EEG+fNIRS+EMG)、数据增强。技术栈:
+            Python 3.9+ / PyTorch 2.x / MNE-Python / scikit-learn / SciPy / pyRiemann。代码规范:
+            fit/transform接口, sklearn兼容, 随机种子可控, 留一被试交叉验证。'
+        - role: user
+          text: '{{#1770000011.output#}}'
+        selected: false
+        title: 🔧 脑机适配
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000021'
+      position:
+        x: 2486
+        y: 304.6111111111111
+      positionAbsolute:
+        x: 2486
+        y: 304.6111111111111
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是BCI数字孪生工程师。核心能力: VR/AR脑机交互(Unity/OpenXR/WebXR)、数字人脑控(IK/FK骨骼/Hill肌肉/blendshape)、3D脑电可视化(Three.js/WebGL着色器)、边缘-云协同(Jetson+Omniverse/Azure
+            DT)。技术栈: C# (Unity 2022 LTS) / TypeScript (Three.js) / Python 3.9+ (桥接)
+            / WebGL 2.0 / OpenXR。代码规范: C# [SerializeField]+Coroutine, TS强类型+RAF, GPU资源dispose()。'
+        - role: user
+          text: '{{#1770000012.output#}}'
+        selected: false
+        title: 🎮 数字孪生
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000022'
+      position:
+        x: 2486
+        y: 480.6111111111111
+      positionAbsolute:
+        x: 2486
+        y: 480.6111111111111
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是脑机软件开发工程师。核心能力: 设备驱动(g.tec/OpenBCI/Emotiv/Muse)、数据管道(LSL/ZeroMQ/Kafka,
+            256ch×1kHz)、API服务(FastAPI/gRPC/JWT/WebSocket)、可视化(React+ECharts/D3)、实验管理、医疗合规(IEC
+            62304/ISO 14971/GDPR/HIPAA)。技术栈: Python 3.11+ / FastAPI / gRPC / LSL /
+            BrainFlow / C++17(驱动) / React 18 / Docker / K8s。代码规范: FastAPI+asyncio+Pydantic
+            v2, pytest≥85%覆盖, JWT安全, structlog日志。'
+        - role: user
+          text: '{{#1770000013.output#}}'
+        selected: false
+        title: 💻 软件开发
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000023'
+      position:
+        x: 2486
+        y: 717.0555555555555
+      positionAbsolute:
+        x: 2486
+        y: 717.0555555555555
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1770000020.text#}}{{#1770000021.text#}}{{#1770000022.text#}}{{#1770000023.text#}}
+
+
+          ---
+
+          > 🧠 BCI脑机接口四岗位代码生成器 | 🎯 {{#1770000001.user_role#}}
+
+          > 💡 切换角色或调整需求，直接描述即可'
+        desc: 将生成的BCI代码输出给用户
+        selected: false
+        title: 输出结果
+        type: answer
+        variables: []
+      height: 234
+      id: answer
+      position:
+        x: 2851.243643661852
+        y: 397.52777777777777
+      positionAbsolute:
+        x: 2851.243643661852
+        y: 397.52777777777777
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -737.1530713419861
+      y: 42.18569709843166
+      zoom: 0.609385394307288
+  rag_pipeline_variables: []
