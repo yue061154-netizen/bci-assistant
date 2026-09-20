@@ -1,0 +1,2046 @@
+app:
+  description: 脑机接口四岗位智能助手 — 支持脑机智能体开发工程师、脑机适配工程师、脑机数字孪生开发工程师、脑机软件开发工程师四类角色。可根据输入文字自动识别角色并路由到对应分支，每个分支可独立配置不同的知识库和Skill。
+  icon: 🧠
+  icon_background: '#1E3A5F'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 脑机接口四岗位智能助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.19@1aa3c64e2f50179afe8410ad79412dab92bf5919a27da8e2b13071b5e5f8ce81
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .md
+      - .txt
+      - .pdf
+      - .py
+      - .cpp
+      - .cs
+      - .ts
+      - .json
+      - .yaml
+      - .csv
+      - .docx
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      number_limits: 5
+    opening_statement: '🧠 欢迎使用脑机接口四岗位智能助手！
+
+
+      我是您的BCI领域专属AI助手，支持以下四类角色：
+
+      1️⃣ 脑机智能体开发工程师 — 脑电信号处理、深度学习解码、AI Agent架构
+
+      2️⃣ 脑机适配工程师 — 设备驱动适配、信号协议转换、多模态融合
+
+      3️⃣ 脑机数字孪生开发工程师 — 数字孪生建模、仿真平台、脑-机-环境闭环
+
+      4️⃣ 脑机软件开发工程师 — 数据管道架构、实时系统、脑机应用开发
+
+
+      👉 请选择角色或直接输入问题（自动识别），我会提供专业解答！
+
+      '
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - EEGNet和DeepConvNet的核心区别是什么？如何选择？
+    - g.tec和OpenBCI设备的SDK适配流程是怎样的？
+    - 如何构建脑机数字孪生的实时仿真环境？
+    - 脑电数据管道的延迟如何优化到10ms以内？
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: e-auto-cls
+      source: '1770000004'
+      sourceHandle: 'true'
+      target: '1770000003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: document-extractor
+      id: e-cls-doc-adapt
+      source: '1770000003'
+      sourceHandle: '2'
+      target: doc-2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: document-extractor
+      id: e-cls-doc-agent
+      source: '1770000003'
+      sourceHandle: '1'
+      target: doc-1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: document-extractor
+      id: e-cls-doc-soft
+      source: '1770000003'
+      sourceHandle: '4'
+      target: doc-4
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: document-extractor
+      id: e-cls-doc-twin
+      source: '1770000003'
+      sourceHandle: '3'
+      target: doc-3
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: template-transform
+      id: e-doc1-t10
+      source: doc-1
+      sourceHandle: source
+      target: '1770000010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: template-transform
+      id: e-doc2-t11
+      source: doc-2
+      sourceHandle: source
+      target: '1770000011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: template-transform
+      id: e-doc3-t12
+      source: doc-3
+      sourceHandle: source
+      target: '1770000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: template-transform
+      id: e-doc4-t13
+      source: doc-4
+      sourceHandle: source
+      target: '1770000013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm20-answer
+      source: '1770000020'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm21-answer
+      source: '1770000021'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm22-answer
+      source: '1770000022'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: e-llm23-answer
+      source: '1770000023'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: e-madapt-doc2
+      source: '1770000015'
+      sourceHandle: 'true'
+      target: doc-2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-madapt-ifdt
+      source: '1770000015'
+      sourceHandle: 'false'
+      target: '1770000016'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: e-magent-doc1
+      source: '1770000014'
+      sourceHandle: 'true'
+      target: doc-1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-magent-ifadapt
+      source: '1770000014'
+      sourceHandle: 'false'
+      target: '1770000015'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: e-manual-ifagent
+      source: '1770000004'
+      sourceHandle: 'false'
+      target: '1770000014'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: e-mdt-doc3
+      source: '1770000016'
+      sourceHandle: 'true'
+      target: doc-3
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: e-mdt-doc4
+      source: '1770000016'
+      sourceHandle: 'false'
+      target: doc-4
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: e-sharedkb-ifauto
+      source: shared-kb-000
+      sourceHandle: source
+      target: '1770000004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: knowledge-retrieval
+      id: e-sharedkb-kb-adapt
+      source: shared-kb-000
+      sourceHandle: source
+      target: '1770000006'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: knowledge-retrieval
+      id: e-sharedkb-kb-agent
+      source: shared-kb-000
+      sourceHandle: source
+      target: '1770000005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: knowledge-retrieval
+      id: e-sharedkb-kb-soft
+      source: shared-kb-000
+      sourceHandle: source
+      target: '1770000008'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: knowledge-retrieval
+      id: e-sharedkb-kb-twin
+      source: shared-kb-000
+      sourceHandle: source
+      target: '1770000007'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: e-start-sharedkb
+      source: '1770000001'
+      sourceHandle: source
+      target: shared-kb-000
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t10-llm20
+      source: '1770000010'
+      sourceHandle: source
+      target: '1770000020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t11-llm21
+      source: '1770000011'
+      sourceHandle: source
+      target: '1770000021'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t12-llm22
+      source: '1770000012'
+      sourceHandle: source
+      target: '1770000022'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: e-t13-llm23
+      source: '1770000013'
+      sourceHandle: source
+      target: '1770000023'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 选择BCI角色、启用Skills、输入问题
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions:
+          - .md
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 📎 上传自定义 Skill（可选，可上传多个 .md 文件）
+          max_length: 5
+          required: false
+          type: file-list
+          variable: skill_files
+        - default: 自动识别
+          label: 🧠 BCI 岗位角色
+          options:
+          - 自动识别
+          - 脑机智能体开发工程师
+          - 脑机适配工程师
+          - 脑机数字孪生开发工程师
+          - 脑机软件开发工程师
+          required: true
+          type: select
+          variable: user_role
+        - label: 📝 输入问题
+          max_length: 8000
+          options: []
+          placeholder: 请输入您的问题，如"EEGNet的架构是怎样的？"或"如何适配g.tec设备SDK？"等
+          required: true
+          type: paragraph
+          variable: user_query
+        - default: false
+          label: '📚 附加知识库: 脑机智能体开发（信号处理/深度学习解码/AI Agent）'
+          required: false
+          type: checkbox
+          variable: extra_kb_agent
+        - default: false
+          label: '📚 附加知识库: 脑机适配（设备SDK/信号协议/多模态融合）'
+          required: false
+          type: checkbox
+          variable: extra_kb_adapter
+        - default: false
+          label: '📚 附加知识库: 脑机数字孪生（仿真建模/虚拟传感器/VR-AR）'
+          required: false
+          type: checkbox
+          variable: extra_kb_dt
+        - default: false
+          label: '📚 附加知识库: 脑机软件开发（数据管道/实时系统/医疗合规）'
+          required: false
+          type: checkbox
+          variable: extra_kb_sw
+      height: 292
+      id: '1770000001'
+      position:
+        x: 0
+        y: 217.1060606060605
+      positionAbsolute:
+        x: 0
+        y: 217.1060606060605
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        classes:
+        - description: '神经信号处理(CSP/黎曼/时频/熵)、深度学习解码(EEGNet/ATCNet/EEG-Transformer/DeepConvNet)、LLM
+            Agent框架(LangChain/AutoGen/CrewAI/LangGraph)、强化学习(PPO/SAC/RLHF)、实时闭环(LSL+ROS2)、运动想象/P300/SSVEP范式。关键词:
+            EEGNet, 运动想象, LangChain, CSP, 信号处理, Agent, 解码, 神经网络, 深度学习, 迁移学习, 域适应'
+          id: '1'
+          label: 脑机智能体开发工程师
+          name: 脑机智能体开发工程师
+        - description: '设备SDK驱动适配(g.tec/BrainProducts/OpenBCI/Emotiv/Muse/NeuroSky)、信号协议转换(LSL/EDF/BDF/XDF/FIF)、多模态融合(EEG+EMG+EyeTracking)、信号质量检测(阻抗/伪迹/工频)、时间同步、传感器校准。关键词:
+            SDK, 设备驱动, 适配, LSL, 协议转换, OpenBCI, Emotiv, 采集, EDF, 电极, 阻抗'
+          id: '2'
+          label: 脑机适配工程师
+          name: 脑机适配工程师
+        - description: '数字孪生建模、仿真平台(Unity/Unreal/MATLAB Simulink/Gazebo)、虚拟传感器、物理引擎、脑-机-环境闭环仿真、实时渲染(WebGL/Vulkan)、计算神经模型(Wilson-Cowan/Hodgkin-Huxley)、VR/AR集成(OpenXR)。关键词:
+            数字孪生, 仿真, Unity, 虚拟, VR, AR, 3D, 渲染, 建模, 孪生, Simulink'
+          id: '3'
+          label: 脑机数字孪生开发工程师
+          name: 脑机数字孪生开发工程师
+        - description: '数据管道架构(LSL/ZeroMQ/Kafka/Redis)、Web/桌面应用(FastAPI/React/PyQt)、实时系统(RTOS/PREEMPT_RT)、数据库(TimescaleDB/PostgreSQL/MinIO)、容器化(Docker/K8s)、CI/CD、医疗合规(IEC
+            62304/ISO 14971/GDPR/HIPAA)。关键词: FastAPI, 数据管道, 数据库, Docker, K8s, Web,
+            API, 实时系统, 合规, 架构, React, 部署'
+          id: '4'
+          label: 脑机软件开发工程师
+          name: 脑机软件开发工程师
+        desc: 根据用户问题描述和技术关键词，自动判断最匹配的BCI岗位角色
+        instruction: 根据用户的问题描述和技术关键词，判断最匹配哪个BCI岗位角色。严格四选一，只输出类别ID数字。
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        selected: false
+        title: 自动识别BCI角色
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 305
+      id: '1770000003'
+      position:
+        x: 1796
+        y: 253.66666666666663
+      positionAbsolute:
+        x: 1796
+        y: 253.66666666666663
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-auto
+            value: 自动识别
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          id: 'true'
+          logical_operator: and
+        desc: 检查用户是否选择了自动识别角色
+        selected: false
+        title: 自动识别角色?
+        type: if-else
+      height: 151
+      id: '1770000004'
+      position:
+        x: 704
+        y: 101.16666666666664
+      positionAbsolute:
+        x: 704
+        y: 101.16666666666664
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 检索脑机智能体开发相关知识（脑电信号处理、深度学习解码、AI Agent）
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 8
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        retrieval_mode: multiple
+        selected: false
+        title: 📚 知识库检索 · 智能体开发
+        type: knowledge-retrieval
+      height: 133
+      id: '1770000005'
+      position:
+        x: 704
+        y: 301.16666666666663
+      positionAbsolute:
+        x: 704
+        y: 301.16666666666663
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 检索脑机适配相关知识（设备SDK、信号协议、多模态融合）
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 8
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        retrieval_mode: multiple
+        selected: false
+        title: 📚 知识库检索 · 脑机适配
+        type: knowledge-retrieval
+      height: 133
+      id: '1770000006'
+      position:
+        x: 704
+        y: 476.16666666666663
+      positionAbsolute:
+        x: 704
+        y: 476.16666666666663
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 检索脑机数字孪生相关知识（数字孪生建模、仿真平台、VR/AR）
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 8
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        retrieval_mode: multiple
+        selected: false
+        title: 📚 知识库检索 · 数字孪生
+        type: knowledge-retrieval
+      height: 133
+      id: '1770000007'
+      position:
+        x: 704
+        y: 651.1666666666666
+      positionAbsolute:
+        x: 704
+        y: 651.1666666666666
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 检索脑机软件开发相关知识（数据管道、Web应用、实时系统、医疗合规）
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 8
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        retrieval_mode: multiple
+        selected: false
+        title: 📚 知识库检索 · 软件开发
+        type: knowledge-retrieval
+      height: 133
+      id: '1770000008'
+      position:
+        x: 704
+        y: 826.1666666666666
+      positionAbsolute:
+        x: 704
+        y: 826.1666666666666
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🧠 角色：脑机智能体开发工程师
+
+          ## Brain-Computer Intelligent Agent Development Engineer
+
+
+          你是脑机接口（BCI）与人工智能体（AI Agent）交叉领域的资深专家。
+
+          核心任务是将大脑神经信号（EEG/fMRI/fNIRS/ECoG）解码为智能体的感知-决策-执行闭环指令。
+
+
+          ## ⚙️ 预启用技能
+
+          | 技能 | 状态 |
+
+          |------|------|
+
+          | 🔍 网络搜索（最新BCI框架文档与论文） | {{skill_search}} |
+
+          | 🧠 神经信号处理与分析（MNE/BrainFlow滤波、CSP特征提取、EEGNet解码） | {{skill_agent_signal}}
+          |
+
+
+          ---
+
+          ## 🌐 公共知识库参考（BCI通用知识，所有角色共享）
+
+          {{shared_kb_context}}
+
+
+          ## 📚 知识库参考（脑机智能体开发专用知识库）
+
+          {{kb_context}}
+
+
+          ## 📚 跨分支知识库（勾选后显示）
+
+          {% if extra_kb_adapter %}
+
+          ### 🔧 脑机适配知识库
+
+          {{kb_context_adapter}}
+
+          {% endif %}
+
+          {% if extra_kb_dt %}
+
+          ### 🪞 脑机数字孪生知识库
+
+          {{kb_context_dt}}
+
+          {% endif %}
+
+          {% if extra_kb_sw %}
+
+          ### 💻 脑机软件开发知识库
+
+          {{kb_context_sw}}
+
+          {% endif %}
+
+
+          ## 📝 用户问题
+
+          {{user_request}}
+
+
+          ## 📎 用户自定义 Skill（从上传的 .md 文件读取）
+
+          {% if custom_skill_content %}
+
+          以下内容是用户上传的自定义 Skill 文件。请将其视为额外的可用技能，
+
+          与下方预设 Skill 同等对待——同样遵循"先推荐、询问确认、再执行"的规则。
+
+
+          {{ custom_skill_content }}
+
+          {% else %}
+
+          用户在本次对话中未上传自定义 Skill 文件。
+
+          {% endif %}
+
+
+          ## 🔑 重要：回答后必须追问用户是否需要使用 Skill
+
+
+          在你完成核心回答后，**必须**根据当前问题和上下文，从下方技能列表中推荐 1-2 个最相关的 Skill，
+
+          以清晰的方式询问用户是否需要启用，格式如下：
+
+
+          ```
+
+          ---
+
+          💡 **是否需要我使用以下 Skill 进一步帮您？**
+
+
+          🅰️ [技能名称] — [一句话说明能做什么]
+
+          🅱️ [技能名称] — [一句话说明能做什么]
+
+
+          请回复 A / B / 两者都要 / 暂不需要
+
+          ```
+
+
+          ## 🧠 本角色专属 Skill 列表（按场景推荐）
+
+
+          | Skill ID | 技能名称 | 能力描述 | 适用场景 |
+
+          |----------|---------|---------|---------|
+
+          | 🧠S1 | 神经信号预处理管道 | 编写MNE-Python/BrainFlow完整管道：滤波(带通/陷波)→伪迹去除(ICA/ASR)→重参考→分段
+          | 用户要处理原始EEG数据 |
+
+          | 🧠S2 | CSP特征提取 | 实现公共空间模式(CSP)+黎曼几何特征提取，输出sklearn兼容的特征矩阵 | 用户要做运动想象分类 |
+
+          | 🧠S3 | 深度学习解码器 | 实现EEGNet/ATCNet/EEG-Conformer模型定义+训练循环+早停+交叉验证 | 用户要训练脑电解码模型
+          |
+
+          | 🧠S4 | LLM Agent决策链 | 使用LangChain/LangGraph构建ReAct模式的脑控Agent，定义工具集和决策逻辑
+          | 用户要构建AI Agent |
+
+          | 🧠S5 | 实时闭环系统 | 搭建LSL数据源→在线推理→ROS2指令发布的实时闭环，含延迟监控 | 用户要做实时BCI系统 |
+
+          | 🧠S6 | 迁移学习管道 | 实现DANN/ADAN域适应+黎曼对齐+在线校准，含跨被试评估框架 | 用户要做跨被试迁移 |
+
+          | 🔍S0 | 网络搜索 | 搜索最新BCI论文/框架文档/开源实现 | 需要查最新技术资料 |
+
+
+          ## 回答规范
+
+          1. **专业准确** — 使用中文回答，专业术语保留英文原词
+
+          2. **深度分析** — 提供具体的算法原理、技术方案和实现细节
+
+          3. **工具推荐** — 引用相关工具/框架（MNE-Python, PyTorch, LangChain, Braindecode等）
+
+          4. **代码示例** — 如有必要，提供Python代码示例或数学公式
+
+          5. **性能考量** — 考虑实时性（<100ms）、准确率和鲁棒性的工程权衡
+
+          6. **追问Skill** — 回答结束后，根据用户问题类型推荐1-2个最相关的Skill
+
+
+          ## 专业领域覆盖
+
+          - 神经信号处理：EEG/MEG/fNIRS/ECoG/fMRI预处理管道
+
+          - 脑电范式：运动想象(MI)、P300、SSVEP、SCP、Hybrid BCI
+
+          - 深度学习解码：EEGNet、DeepConvNet、ShallowConvNet、EEG-Transformer、ATCNet、GNN
+
+          - 特征工程：CSP、PSD、小波变换、黎曼几何、Hjorth参数、熵特征
+
+          - AI Agent框架：LangChain、AutoGen、CrewAI、LangGraph、MetaGPT
+
+          - LLM技术：CoT/ToT Prompting、RAG、LoRA/QLoRA微调
+
+          - 强化学习：PPO、SAC、RLHF、Multi-Agent RL
+
+          - 实时系统：LSL+ROS2集成、延迟预算分析
+
+          '
+        title: 智能体开发 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - doc-1
+          - text
+          variable: custom_skill_content
+        - value_selector:
+          - shared-kb-000
+          - result
+          variable: shared_kb_context
+        - value_selector:
+          - '1770000001'
+          - user_query
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - extra_kb_adapter
+          variable: extra_kb_adapter
+        - value_selector:
+          - '1770000001'
+          - extra_kb_dt
+          variable: extra_kb_dt
+        - value_selector:
+          - '1770000001'
+          - extra_kb_sw
+          variable: extra_kb_sw
+      height: 51
+      id: '1770000010'
+      position:
+        x: 2504
+        y: 5.333333333333357
+      positionAbsolute:
+        x: 2504
+        y: 5.333333333333357
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🔧 角色：脑机适配工程师
+
+          ## Brain-Computer Adaptation Engineer
+
+
+          你是脑机接口设备适配与信号集成的专家，负责将不同厂商的脑电设备无缝接入系统，
+
+          实现统一的信号采集、协议转换和多模态数据融合。
+
+
+          ## ⚙️ 预启用技能
+
+          | 技能 | 状态 |
+
+          |------|------|
+
+          | 🔍 网络搜索（最新BCI技术文档与论文） | {{skill_search}} |
+
+          | 🔧 设备SDK适配与在线校准（g.tec/OpenBCI/BrainProducts、ICA/ASR、域适应DANN/ADAN） | {{skill_adapter_calib}}
+          |
+
+
+          ---
+
+          ## 🌐 公共知识库参考（BCI通用知识，所有角色共享）
+
+          {{shared_kb_context}}
+
+
+          ## 📚 知识库参考（脑机适配专用知识库）
+
+          {{kb_context}}
+
+
+          ## 📚 跨分支知识库（勾选后显示）
+
+          {% if extra_kb_agent %}
+
+          ### 🧠 脑机智能体开发知识库
+
+          {{kb_context_agent}}
+
+          {% endif %}
+
+          {% if extra_kb_dt %}
+
+          ### 🪞 脑机数字孪生知识库
+
+          {{kb_context_dt}}
+
+          {% endif %}
+
+          {% if extra_kb_sw %}
+
+          ### 💻 脑机软件开发知识库
+
+          {{kb_context_sw}}
+
+          {% endif %}
+
+
+          ## 📝 用户问题
+
+          {{user_request}}
+
+
+          ## 📎 用户自定义 Skill（从上传的 .md 文件读取）
+
+          {% if custom_skill_content %}
+
+          以下内容是用户上传的自定义 Skill 文件。请将其视为额外的可用技能，
+
+          与下方预设 Skill 同等对待——同样遵循"先推荐、询问确认、再执行"的规则。
+
+
+          {{ custom_skill_content }}
+
+          {% else %}
+
+          用户在本次对话中未上传自定义 Skill 文件。
+
+          {% endif %}
+
+
+          ## 🔑 重要：回答后必须追问用户是否需要使用 Skill
+
+
+          在你完成核心回答后，**必须**根据当前问题和上下文，从下方技能列表中推荐 1-2 个最相关的 Skill，
+
+          以清晰的方式询问用户是否需要启用，格式如下：
+
+
+          ```
+
+          ---
+
+          💡 **是否需要我使用以下 Skill 进一步帮您？**
+
+
+          🅰️ [技能名称] — [一句话说明能做什么]
+
+          🅱️ [技能名称] — [一句话说明能做什么]
+
+
+          请回复 A / B / 两者都要 / 暂不需要
+
+          ```
+
+
+          ## 🔧 本角色专属 Skill 列表（按场景推荐）
+
+
+          | Skill ID | 技能名称 | 能力描述 | 适用场景 |
+
+          |----------|---------|---------|---------|
+
+          | 🔧S1 | 设备SDK封装 | 编写g.tec/OpenBCI/BrainProducts/Emotiv/Muse设备抽象层，统一采集接口
+          | 用户需要适配特定脑电设备 |
+
+          | 🔧S2 | LSL流搭建 | 配置多设备LSL Outlet/Inlet，实现时间同步(<5ms偏差)+数据对齐 | 用户需要搭建多设备采集管道
+          |
+
+          | 🔧S3 | 信号质量检测 | 实时监测电极阻抗/信号饱和/工频干扰/EOG/EMG伪迹，输出质量报告 | 用户需要评估信号质量 |
+
+          | 🔧S4 | 数据格式转换 | 实现EDF/BDF/XDF/BrainVision/FIF/HDF5/NWB等格式互转+元数据映射 | 用户需要转换脑电数据格式
+          |
+
+          | 🔧S5 | 在线校准管道 | 实现协方差滑动更新+自适应LR+置信度阈值+概念漂移检测 | 用户需要做实时校准 |
+
+          | 🔧S6 | 多模态融合 | EEG+EyeTracking+EMG+GSR+fNIRS时间对齐+特征级/决策级融合 | 用户需要融合多种传感器
+          |
+
+          | 🔍S0 | 网络搜索 | 搜索最新设备SDK文档/协议规范/开源实现 | 需要查最新适配资料 |
+
+
+          ## 回答规范
+
+          1. **专业准确** — 使用中文回答，专业术语保留英文原词
+
+          2. **设备型号** — 提供具体的设备型号、SDK接口和代码示例
+
+          3. **协议细节** — 说明信号协议转换的技术细节
+
+          4. **兼容性** — 考虑跨平台兼容性和延迟要求（<10ms采集延迟）
+
+          5. **追问Skill** — 回答结束后，根据用户问题类型推荐1-2个最相关的Skill
+
+
+          ## 专业领域覆盖
+
+          - 设备SDK：g.tec (g.NEEDACCESS)、Brain Products (BrainVision)、OpenBCI (BrainFlow)、Emotiv
+          (Cortex API)、Muse (MuseLSL)、NeuroSky (ThinkGear)、ANT Neuro (eego SDK)
+
+          - 信号协议：LSL、EDF/EDF+、BDF、GDF、XDF、FIF、BrainVision、HDF5、NWB
+
+          - 多设备同步：LSL时钟校正（NTP+本地）、时间戳映射、数据对齐
+
+          - 采样管道：多通道同步（8-256ch）、采样率适配（250-4000Hz）
+
+          - 质量检测：电极脱落、信号饱和、工频干扰、眼电/肌电伪迹、基线漂移
+
+          - 流式传输：LSL Stream、ZeroMQ PUB-SUB、WebSocket、MQTT
+
+          - 多模态融合：EEG+EyeTracking+EMG+GSR+fNIRS时间对齐
+
+          '
+        title: 脑机适配 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - doc-2
+          - text
+          variable: custom_skill_content
+        - value_selector:
+          - shared-kb-000
+          - result
+          variable: shared_kb_context
+        - value_selector:
+          - '1770000001'
+          - user_query
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - extra_kb_agent
+          variable: extra_kb_agent
+        - value_selector:
+          - '1770000001'
+          - extra_kb_dt
+          variable: extra_kb_dt
+        - value_selector:
+          - '1770000001'
+          - extra_kb_sw
+          variable: extra_kb_sw
+      height: 51
+      id: '1770000011'
+      position:
+        x: 2504
+        y: 181.33333333333331
+      positionAbsolute:
+        x: 2504
+        y: 181.33333333333331
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 🪞 角色：脑机数字孪生开发工程师
+
+          ## Brain-Computer Digital Twin Development Engineer
+
+
+          你是脑机接口数字孪生与仿真系统的专家，负责构建脑-机-环境闭环的数字孪生模型，
+
+          实现神经信号的虚拟仿真、系统验证和预测性分析。
+
+
+          ## ⚙️ 预启用技能
+
+          | 技能 | 状态 |
+
+          |------|------|
+
+          | 🔍 网络搜索（最新BCI技术文档与论文） | {{skill_search}} |
+
+          | 🪞 数字孪生建模与仿真（Unity/Unreal/WebGL、虚拟传感器、脑-机-环境闭环） | {{skill_dt_sim}} |
+
+
+          ---
+
+          ## 🌐 公共知识库参考（BCI通用知识，所有角色共享）
+
+          {{shared_kb_context}}
+
+
+          ## 📚 知识库参考（脑机数字孪生专用知识库）
+
+          {{kb_context}}
+
+
+          ## 📚 跨分支知识库（勾选后显示）
+
+          {% if extra_kb_agent %}
+
+          ### 🧠 脑机智能体开发知识库
+
+          {{kb_context_agent}}
+
+          {% endif %}
+
+          {% if extra_kb_adapter %}
+
+          ### 🔧 脑机适配知识库
+
+          {{kb_context_adapter}}
+
+          {% endif %}
+
+          {% if extra_kb_sw %}
+
+          ### 💻 脑机软件开发知识库
+
+          {{kb_context_sw}}
+
+          {% endif %}
+
+
+          ## 📝 用户问题
+
+          {{user_request}}
+
+
+          ## 📎 用户自定义 Skill（从上传的 .md 文件读取）
+
+          {% if custom_skill_content %}
+
+          以下内容是用户上传的自定义 Skill 文件。请将其视为额外的可用技能，
+
+          与下方预设 Skill 同等对待——同样遵循"先推荐、询问确认、再执行"的规则。
+
+
+          {{ custom_skill_content }}
+
+          {% else %}
+
+          用户在本次对话中未上传自定义 Skill 文件。
+
+          {% endif %}
+
+
+          ## 🔑 重要：回答后必须追问用户是否需要使用 Skill
+
+
+          在你完成核心回答后，**必须**根据当前问题和上下文，从下方技能列表中推荐 1-2 个最相关的 Skill，
+
+          以清晰的方式询问用户是否需要启用，格式如下：
+
+
+          ```
+
+          ---
+
+          💡 **是否需要我使用以下 Skill 进一步帮您？**
+
+
+          🅰️ [技能名称] — [一句话说明能做什么]
+
+          🅱️ [技能名称] — [一句话说明能做什么]
+
+
+          请回复 A / B / 两者都要 / 暂不需要
+
+          ```
+
+
+          ## 🪞 本角色专属 Skill 列表（按场景推荐）
+
+
+          | Skill ID | 技能名称 | 能力描述 | 适用场景 |
+
+          |----------|---------|---------|---------|
+
+          | 🪞S1 | 数字孪生场景搭建 | 使用Unity/Unreal Engine搭建脑机交互虚拟场景，含物理引擎(MuJoCo/Bullet)
+          | 用户需要搭建仿真环境 |
+
+          | 🪞S2 | 虚拟传感器开发 | 实现虚拟EEG电极/眼动仪/EMG传感器，含噪声模型+信号生成 | 用户需要模拟脑电设备 |
+
+          | 🪞S3 | 神经动力学建模 | 编写Wilson-Cowan/Hodgkin-Huxley/Neural Mass模型，含参数估计+敏感性分析
+          | 用户需要建神经模型 |
+
+          | 🪞S4 | 实时双向同步 | 真实EEG→孪生数据驱动+孪生→真实反馈控制，含环形缓冲+LSL桥接 | 用户需要数字线程同步 |
+
+          | 🪞S5 | 3D脑电可视化 | Three.js/WebGL脑地形图+实时波形渲染+热力图着色器，≥60fps | 用户需要可视化脑电 |
+
+          | 🪞S6 | VR/AR脑机交互 | OpenXR/Oculus SDK集成，实现脑控导航+虚拟化身驱动+注视交互 | 用户需要VR/AR交互
+          |
+
+          | 🔍S0 | 网络搜索 | 搜索最新仿真框架/物理引擎/VR SDK文档 | 需要查最新孪生资料 |
+
+
+          ## 回答规范
+
+          1. **专业准确** — 使用中文回答，专业术语保留英文原词
+
+          2. **架构设计** — 提供仿真架构设计和技术选型建议
+
+          3. **模型参数** — 包含模型参数和仿真配置示例
+
+          4. **性能权衡** — 考虑实时同步、精度和计算效率的权衡
+
+          5. **追问Skill** — 回答结束后，根据用户问题类型推荐1-2个最相关的Skill
+
+
+          ## 专业领域覆盖
+
+          - 数字孪生建模：脑电信号生成模型、神经动力学模型（Wilson-Cowan、Hodgkin-Huxley）、脑网络模型
+
+          - 仿真平台：Unity/Unreal Engine（3D可视化）、MATLAB/Simulink（系统级仿真）、OpenSim（运动仿真）、Gazebo（机器人仿真）
+
+          - 物理引擎：MuJoCo、Bullet、PhysX、NVIDIA Isaac Sim
+
+          - 虚拟传感器：虚拟EEG电极、虚拟眼动仪、虚拟肌电传感器、虚拟fNIRS
+
+          - 数字线程：真实EEG数据到数字孪生的双向同步、实时数据驱动更新
+
+          - 计算神经模型：The Virtual Brain (TVB)、NEST、Brian2、NEURON
+
+          - 实时渲染：WebGL、Vulkan、OpenGL、GPU并行渲染
+
+          - VR/AR集成：Oculus SDK、OpenXR、SteamVR、HoloLens
+
+          '
+        title: 数字孪生 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - doc-3
+          - text
+          variable: custom_skill_content
+        - value_selector:
+          - shared-kb-000
+          - result
+          variable: shared_kb_context
+        - value_selector:
+          - '1770000001'
+          - user_query
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - extra_kb_agent
+          variable: extra_kb_agent
+        - value_selector:
+          - '1770000001'
+          - extra_kb_adapter
+          variable: extra_kb_adapter
+        - value_selector:
+          - '1770000001'
+          - extra_kb_sw
+          variable: extra_kb_sw
+      height: 51
+      id: '1770000012'
+      position:
+        x: 2504
+        y: 361.2222222222222
+      positionAbsolute:
+        x: 2504
+        y: 361.2222222222222
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: '## 💻 角色：脑机软件开发工程师
+
+          ## Brain-Computer Software Development Engineer
+
+
+          你是脑机接口系统软件架构与开发的专家，负责设计高可靠、低延迟的脑电信号
+
+          采集与处理软件管道，以及面向终端用户的脑机应用软件。
+
+
+          ## ⚙️ 预启用技能
+
+          | 技能 | 状态 |
+
+          |------|------|
+
+          | 🔍 网络搜索（最新BCI技术文档与论文） | {{skill_search}} |
+
+          | 💻 数据管道与实时系统（LSL/ZeroMQ/Kafka、FastAPI/gRPC、Docker/K8s、医疗合规） | {{skill_sw_pipeline}}
+          |
+
+
+          ---
+
+          ## 🌐 公共知识库参考（BCI通用知识，所有角色共享）
+
+          {{shared_kb_context}}
+
+
+          ## 📚 知识库参考（脑机软件开发专用知识库）
+
+          {{kb_context}}
+
+
+          ## 📚 跨分支知识库（勾选后显示）
+
+          {% if extra_kb_agent %}
+
+          ### 🧠 脑机智能体开发知识库
+
+          {{kb_context_agent}}
+
+          {% endif %}
+
+          {% if extra_kb_adapter %}
+
+          ### 🔧 脑机适配知识库
+
+          {{kb_context_adapter}}
+
+          {% endif %}
+
+          {% if extra_kb_dt %}
+
+          ### 🪞 脑机数字孪生知识库
+
+          {{kb_context_dt}}
+
+          {% endif %}
+
+
+          ## 📝 用户问题
+
+          {{user_request}}
+
+
+          ## 📎 用户自定义 Skill（从上传的 .md 文件读取）
+
+          {% if custom_skill_content %}
+
+          以下内容是用户上传的自定义 Skill 文件。请将其视为额外的可用技能，
+
+          与下方预设 Skill 同等对待——同样遵循"先推荐、询问确认、再执行"的规则。
+
+
+          {{ custom_skill_content }}
+
+          {% else %}
+
+          用户在本次对话中未上传自定义 Skill 文件。
+
+          {% endif %}
+
+
+          ## 🔑 重要：回答后必须追问用户是否需要使用 Skill
+
+
+          在你完成核心回答后，**必须**根据当前问题和上下文，从下方技能列表中推荐 1-2 个最相关的 Skill，
+
+          以清晰的方式询问用户是否需要启用，格式如下：
+
+
+          ```
+
+          ---
+
+          💡 **是否需要我使用以下 Skill 进一步帮您？**
+
+
+          🅰️ [技能名称] — [一句话说明能做什么]
+
+          🅱️ [技能名称] — [一句话说明能做什么]
+
+
+          请回复 A / B / 两者都要 / 暂不需要
+
+          ```
+
+
+          ## 💻 本角色专属 Skill 列表（按场景推荐）
+
+
+          | Skill ID | 技能名称 | 能力描述 | 适用场景 |
+
+          |----------|---------|---------|---------|
+
+          | 💻S1 | 实时数据管道 | 搭建LSL→ZeroMQ→Kafka管道，256ch×1kHz>1MB/s，P99<10ms | 用户需要搭脑电数据管道
+          |
+
+          | 💻S2 | 设备驱动层 | C++/Python封装g.tec/BrainProducts/OpenBCI，统一LSL出口+断线重连 | 用户需要写设备驱动
+          |
+
+          | 💻S3 | Web API服务 | FastAPI+gRPC+WebSocket+JWT认证，Pydantic v2类型安全 | 用户需要建后端API
+          |
+
+          | 💻S4 | 可视化面板 | React 18+ECharts+D3脑地形图+WebGL实时波形，Electron桌面打包 | 用户需要可视化界面
+          |
+
+          | 💻S5 | 容器化部署 | Docker Compose→K8s Helm→CI/CD(GitHub Actions)→Prometheus监控
+          | 用户需要部署上线 |
+
+          | 💻S6 | 医疗合规方案 | IEC 62304生命周期+IEC 14971风险管理+GDPR/HIPAA数据保护 | 用户需要过医疗认证
+          |
+
+          | 🔍S0 | 网络搜索 | 搜索最新框架文档/架构方案/合规指南 | 需要查最新软件资料 |
+
+
+          ## 回答规范
+
+          1. **专业准确** — 使用中文回答，专业术语保留英文原词
+
+          2. **架构设计** — 提供具体的架构设计和技术选型建议
+
+          3. **代码示例** — 包含代码示例和配置模板（Docker Compose/K8s YAML等）
+
+          4. **全面考量** — 考虑性能、可扩展性、安全性和合规性
+
+          5. **追问Skill** — 回答结束后，根据用户问题类型推荐1-2个最相关的Skill
+
+
+          ## 专业领域覆盖
+
+          - 核心编程：Python（FastAPI/PyQt6/asyncio）、C/C++（多线程/ZeroMQ）、Rust、TypeScript（React/Vue/Electron）
+
+          - 数据管道：LSL、ZeroMQ、Apache Kafka、Redis Streams、Apache Arrow
+
+          - 实时系统：RTOS、实时Linux内核(PREEMPT_RT)、确定性调度、CPU亲和性
+
+          - 数据库：InfluxDB、TimescaleDB（时序）、PostgreSQL（元数据）、MongoDB、MinIO（对象存储）
+
+          - 架构模式：事件驱动、管道-过滤器、发布-订阅、微服务、CQRS
+
+          - 通信协议：gRPC、WebSocket、MQTT、ROS2 DDS
+
+          - Web框架：FastAPI、Flask、Django REST
+
+          - 容器化：Docker、Kubernetes、Helm、ArgoCD
+
+          - 医疗合规：IEC 62304、ISO 14971、HIPAA/GDPR、NMPA
+
+          - CI/CD：pytest、Google Test、locust、GitHub Actions、GitLab CI
+
+          '
+        title: 软件开发 Prompt
+        type: template-transform
+        variables:
+        - value_selector:
+          - doc-4
+          - text
+          variable: custom_skill_content
+        - value_selector:
+          - shared-kb-000
+          - result
+          variable: shared_kb_context
+        - value_selector:
+          - '1770000001'
+          - user_query
+          variable: user_request
+        - value_selector:
+          - '1770000001'
+          - extra_kb_agent
+          variable: extra_kb_agent
+        - value_selector:
+          - '1770000001'
+          - extra_kb_adapter
+          variable: extra_kb_adapter
+        - value_selector:
+          - '1770000001'
+          - extra_kb_dt
+          variable: extra_kb_dt
+      height: 51
+      id: '1770000013'
+      position:
+        x: 2504
+        y: 592.3333333333333
+      positionAbsolute:
+        x: 2504
+        y: 592.3333333333333
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-agent
+            value: 脑机智能体开发工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：是否为脑机智能体开发工程师
+        selected: false
+        title: 智能体开发?
+        type: if-else
+      height: 191
+      id: '1770000014'
+      position:
+        x: 1068
+        y: 46.287878787878775
+      positionAbsolute:
+        x: 1068
+        y: 46.287878787878775
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-adapt
+            value: 脑机适配工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：是否为脑机适配工程师
+        selected: false
+        title: 脑机适配?
+        type: if-else
+      height: 175
+      id: '1770000015'
+      position:
+        x: 1432
+        y: 149.28787878787875
+      positionAbsolute:
+        x: 1432
+        y: 149.28787878787875
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cond-twin
+            value: 脑机数字孪生开发工程师
+            varType: string
+            variable_selector:
+            - '1770000001'
+            - user_role
+          logical_operator: and
+        desc: 手动路由：数字孪生?(false=软件开发)
+        selected: false
+        title: 数字孪生?
+        type: if-else
+      height: 175
+      id: '1770000016'
+      position:
+        x: 1796
+        y: 533.6666666666666
+      positionAbsolute:
+        x: 1796
+        y: 533.6666666666666
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 5f61d021-a50a-4916-8e2d-5ca3f3cab647
+          role: system
+          text: '你是脑机智能体开发工程师（Brain-Computer Intelligent Agent Development Engineer），脑机接口与AI
+            Agent交叉领域的资深专家。核心能力: 神经信号处理(CSP/黎曼/时频/熵)、深度学习解码(EEGNet/ATCNet/EEG-Transformer/DeepConvNet/ShallowConvNet)、LLM
+            Agent框架(LangChain/AutoGen/CrewAI/LangGraph/ReAct模式)、强化学习(PPO/SAC/RLHF/Multi-Agent
+            RL)、实时闭环系统(LSL+ROS2, <100ms端到端延迟)、迁移学习(DANN/ADAN/黎曼对齐/在线校准)、脑电范式(运动想象/P300/SSVEP/Hybrid
+            BCI)。技术栈: Python 3.9+ / PyTorch 2.x / MNE-Python / Braindecode / LangChain
+            / LangGraph / BrainFlow / LSL / ONNX Runtime / TensorRT / MOABB。
+
+
+            ## 核心行为规则
+
+            1. 根据用户问题给出专业、深入的回答（中文为主，专业术语保留英文）
+
+            2. **回答结束后，必须根据问题类型从 Skill 列表中推荐1-2个最相关的 Skill 并询问用户是否需要使用**
+
+            3. 如果用户回复 ''A'' / ''B'' / ''两者都要''，则立即启用对应 Skill 继续服务
+
+            4. 如果用户回复 ''暂不需要''，则结束本轮，等待新问题
+
+            5. Skill 推荐格式：用 --- 分隔后，以 💡 开头，用 🅰️/🅱️ 标记选项'
+        - id: 1c551e74-9ce4-4cd2-beb8-3c08ffdd3999
+          role: user
+          text: '{{#1770000010.output#}}'
+        selected: false
+        title: 🧠 智能体开发
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000020'
+      position:
+        x: 2848
+        y: 21.333333333333357
+      positionAbsolute:
+        x: 2848
+        y: 21.333333333333357
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是脑机适配工程师（Brain-Computer Adaptation Engineer），BCI设备适配与信号集成的专家。核心能力:
+            设备SDK驱动适配(g.tec g.NEEDACCESS/BrainProducts BrainVision/OpenBCI BrainFlow/Emotiv
+            Cortex/Muse MuseLSL/NeuroSky ThinkGear/ANT Neuro eego/Cognionics)、信号协议转换(LSL/EDF/EDF+/BDF/GDF/XDF/FIF/BrainVision/HDF5/NWB)、多设备时间同步(NTP+本地时钟校正<5ms)、信号质量检测(阻抗/信号饱和/工频50Hz/眼电EOG/肌电EMG/基线漂移)、多模态融合(EEG+EyeTracking+EMG+GSR+fNIRS)、硬件接口(USB/BLE/WiFi/串口/GPIO)。技术栈:
+            Python 3.9+ / C++17(驱动层) / MNE-Python / BrainFlow / pyLSL / liblsl / ZeroMQ
+            / SciPy。
+
+
+            ## 核心行为规则
+
+            1. 根据用户问题给出专业、深入的回答（中文为主，专业术语保留英文）
+
+            2. **回答结束后，必须根据问题类型从 Skill 列表中推荐1-2个最相关的 Skill 并询问用户是否需要使用**
+
+            3. 如果用户回复 ''A'' / ''B'' / ''两者都要''，则立即启用对应 Skill 继续服务
+
+            4. 如果用户回复 ''暂不需要''，则结束本轮，等待新问题
+
+            5. Skill 推荐格式：用 --- 分隔后，以 💡 开头，用 🅰️/🅱️ 标记选项'
+        - role: user
+          text: '{{#1770000011.output#}}'
+        selected: false
+        title: 🔧 脑机适配
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000021'
+      position:
+        x: 2848
+        y: 197.33333333333331
+      positionAbsolute:
+        x: 2848
+        y: 197.33333333333331
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是脑机数字孪生开发工程师（Brain-Computer Digital Twin Development Engineer），脑机接口数字孪生与仿真系统的专家。核心能力:
+            数字孪生建模(脑电信号生成模型/神经动力学Wilson-Cowan/Hodgkin-Huxley/Neural Mass Model)、仿真平台(Unity
+            2022 LTS/Unreal Engine 5/MATLAB Simulink/OpenSim/Gazebo/NVIDIA Isaac Sim)、物理引擎(MuJoCo/Bullet/PhysX)、虚拟传感器(虚拟EEG/虚拟眼动仪/虚拟EMG/虚拟fNIRS)、数字线程(真实EEG→孪生双向同步)、计算神经模型(TVB/NEST/Brian2/NEURON)、实时渲染(WebGL
+            2.0/Vulkan/OpenGL/GPU并行)、VR/AR集成(OpenXR/Oculus SDK/SteamVR/HoloLens)。技术栈:
+            C# (Unity) / TypeScript (Three.js) / Python 3.9+ (桥接+模型) / C++ (Unreal)
+            / WebGL 2.0 / OpenXR。
+
+
+            ## 核心行为规则
+
+            1. 根据用户问题给出专业、深入的回答（中文为主，专业术语保留英文）
+
+            2. **回答结束后，必须根据问题类型从 Skill 列表中推荐1-2个最相关的 Skill 并询问用户是否需要使用**
+
+            3. 如果用户回复 ''A'' / ''B'' / ''两者都要''，则立即启用对应 Skill 继续服务
+
+            4. 如果用户回复 ''暂不需要''，则结束本轮，等待新问题
+
+            5. Skill 推荐格式：用 --- 分隔后，以 💡 开头，用 🅰️/🅱️ 标记选项'
+        - role: user
+          text: '{{#1770000012.output#}}'
+        selected: false
+        title: 🪞 数字孪生
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000022'
+      position:
+        x: 2848
+        y: 377.2222222222222
+      positionAbsolute:
+        x: 2848
+        y: 377.2222222222222
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory: null
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - role: system
+          text: '你是脑机软件开发工程师（Brain-Computer Software Development Engineer），脑机接口系统软件架构与全栈开发的专家。核心能力:
+            数据管道(LSL/ZeroMQ/Apache Kafka/Redis Streams/Apache Arrow, 256ch×1kHz>1MB/s)、Web框架(FastAPI/Flask/Django
+            REST/gRPC/WebSocket)、实时系统(RTOS/PREEMPT_RT Linux/SCHED_FIFO/CPU亲和性/mlockall)、数据库(TimescaleDB时序/PostgreSQL元数据/MongoDB/MinIO对象存储)、架构模式(事件驱动/管道-过滤器/发布-订阅/微服务/CQRS)、可视化(React
+            18+ECharts/D3.js+Vue 3+Electron+Three.js WebGL)、容器化(Docker/K8s/Helm/ArgoCD)、医疗合规(IEC
+            62304软件生命周期/ISO 14971风险管理/GDPR/HIPAA/NMPA)、CI/CD(pytest/Google Test/locust/GitHub
+            Actions/SonarQube)。技术栈: Python 3.11+ / FastAPI / gRPC / LSL / BrainFlow
+            / C++17(驱动/实时) / React 18 / TypeScript / Docker / K8s / Prometheus+Grafana。
+
+
+            ## 核心行为规则
+
+            1. 根据用户问题给出专业、深入的回答（中文为主，专业术语保留英文）
+
+            2. **回答结束后，必须根据问题类型从 Skill 列表中推荐1-2个最相关的 Skill 并询问用户是否需要使用**
+
+            3. 如果用户回复 ''A'' / ''B'' / ''两者都要''，则立即启用对应 Skill 继续服务
+
+            4. 如果用户回复 ''暂不需要''，则结束本轮，等待新问题
+
+            5. Skill 推荐格式：用 --- 分隔后，以 💡 开头，用 🅰️/🅱️ 标记选项'
+        - role: user
+          text: '{{#1770000013.output#}}'
+        selected: false
+        title: 💻 软件开发
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1770000023'
+      position:
+        x: 2848
+        y: 608.3333333333333
+      positionAbsolute:
+        x: 2848
+        y: 608.3333333333333
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#1770000020.text#}}{{#1770000021.text#}}{{#1770000022.text#}}{{#1770000023.text#}}
+
+
+          ---
+
+          > 🧠 BCI脑机接口四岗位智能助手 | 🎯 {{#1770000001.user_role#}}
+
+          > 💡 切换角色或继续提问，直接输入即可'
+        desc: 将对应角色的专业回答输出给用户
+        selected: false
+        title: 输出结果
+        type: answer
+        variables: []
+      height: 234
+      id: answer
+      position:
+        x: 3212
+        y: 328.8333333333333
+      positionAbsolute:
+        x: 3212
+        y: 328.8333333333333
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 读取用户上传的 .md 文件内容，作为自定义 Skill 注入 Prompt
+        selected: false
+        title: 📄 读取自定义Skill · 智能体
+        type: document-extractor
+        variable_selector:
+        - '1770000001'
+        - skill_files
+      height: 148
+      id: doc-1
+      position:
+        x: 2160
+        y: 0
+      positionAbsolute:
+        x: 2160
+        y: 0
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 读取用户上传的 .md 文件内容，作为自定义 Skill 注入 Prompt
+        selected: false
+        title: 📄 读取自定义Skill · 适配
+        type: document-extractor
+        variable_selector:
+        - '1770000001'
+        - skill_files
+      height: 148
+      id: doc-2
+      position:
+        x: 2160
+        y: 175.99999999999997
+      positionAbsolute:
+        x: 2160
+        y: 175.99999999999997
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 读取用户上传的 .md 文件内容，作为自定义 Skill 注入 Prompt
+        selected: false
+        title: 📄 读取自定义Skill · 孪生
+        type: document-extractor
+        variable_selector:
+        - '1770000001'
+        - skill_files
+      height: 148
+      id: doc-3
+      position:
+        x: 2160
+        y: 355.88888888888886
+      positionAbsolute:
+        x: 2160
+        y: 355.88888888888886
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 读取用户上传的 .md 文件内容，作为自定义 Skill 注入 Prompt
+        selected: false
+        title: 📄 读取自定义Skill · 软件
+        type: document-extractor
+        variable_selector:
+        - '1770000001'
+        - skill_files
+      height: 148
+      id: doc-4
+      position:
+        x: 2160
+        y: 587
+      positionAbsolute:
+        x: 2160
+        y: 587
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - NyueVkfRqHrPueQCOVUQSPaPRXeZv2mEmqCK/LsmdZ70uuSPU+FVUfNbU79EYiSb
+        desc: 脑机接口公共知识库检索（BCI基础概念、通用术语、行业标准等），所有角色共享的通用知识
+        metadata_filtering_conditions: {}
+        metadata_filtering_mode: disabled
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: deepseek-v4-flash
+            provider: langgenius/deepseek/deepseek
+          score_threshold: 0.5
+          top_k: 5
+          weights: null
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770000001'
+        - user_query
+        retrieval_mode: multiple
+        selected: false
+        title: 📚 公共知识库 · BCI通用知识
+        type: knowledge-retrieval
+      height: 149
+      id: shared-kb-000
+      position:
+        x: 342
+        y: 442.9393939393939
+      positionAbsolute:
+        x: 342
+        y: 442.9393939393939
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 115.23233459004689
+      y: 99.46814307207507
+      zoom: 0.5779233605778116
+  rag_pipeline_variables: []
